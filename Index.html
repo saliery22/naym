@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Wialon Marshruti</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script type="text/javascript" src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
+
+</head>
+<body>
+<style>
+
+#map { width: 100%; height:750px; float: left; margin: auto; font-family: "Arial"; font-size: 11px;}
+
+
+#log { float: left; width: 30%; border: 1px solid #c6c6c6; max-height:50px; overflow-y: auto; margin: 0px 0px 10px 0px;}
+
+body{ font-family: "Arial"; font-size: 12px; background: #f8f7f7;}
+#f{  position: relative;left: 25%;}
+
+
+
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+    margin: 10px 0px 10px 0px;
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 10px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    
+    width: 15px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+ 
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 0px
+}
+
+.slider::-moz-range-thumb {
+    width: 15px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 0px
+}
+button {
+    
+    outline: none;
+    border: 1px solid rgb(49, 47, 47);
+    border-radius: 3px;
+    box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+button:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.45), 0 1px 3px 1px rgb(26 115 232 / 30%);
+}
+
+button, input, span, select,textarea {margin: 3px 0px 0px 3px;   font-family: "Arial"; font-size: 12px;}
+
+.textforma {display: flex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+
+<!-- load map -->
+ <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+
+    <div>
+    <select class='livesearch' id='lis0'style='width:200px;'> <option value='0'>—</option></select>
+    <button id='figura'>Фігура</button>
+    <button id='dyacok'>Дячок</button>
+    <span id="nammmme"></span>
+    </div>
+
+
+<div id="map"></div>
+
+
+
+
+  
+ 
+ 
+ <div><input id='fromtime1' type='text' placeholder='date1'><input id='fromtime2' type='text' placeholder='date2'><button id='eeew'>Завантажити</button><span id="f"></span></div>
+
+ <div class="slidecontainer">
+   <input type="range" min="1" max="2000" value="2000" class="slider" id="myRange">
+ </div>     
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+        
+
+
+
+<div id="log"></div>
+
+  <script src="zup.js"></script> 
+
+
+</body>
+</html>
+ 
