@@ -21,7 +21,7 @@ var isUIActive = true;
 
 var cur_day111 = new Date();
 var month = cur_day111.getMonth()+1;   
-var from111 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' 00:00';
+var from111 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' 06:00';
 var from222 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' ' + cur_day111.getHours()+ ':' + cur_day111.getMinutes();
 
 
