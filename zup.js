@@ -1,5 +1,5 @@
 
-var TOKEN1= '195361be632a84edad04de93800fee7bA39A4965F92DCB97BFFF938BC5A0415C99DF3CCC';
+var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f5352283DC6A9D670C8F7BA72A75BCC09B89FE6A2';
 var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f288674519D6EEE0DCC1057B81F7409B26008F22F86';
 var TOKEN3= '4dc3b0204971684d74650010bced5b6a8EB692F1698D3BCF61FA360AA6812AD35EE82E7C';
 
@@ -381,7 +381,7 @@ function UpdateGlobalData(i=0){
       $('button').prop("disabled", false);
       $('#log').empty();
       msg('Завантажено');
-      console.log(Global_DATA);
+      //console.log(Global_DATA);
     }   
 }
 function loadMessages(i,unitt){ 
