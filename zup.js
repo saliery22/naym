@@ -281,7 +281,7 @@ $(document).ready(function () {
     $('#figura').hide();
     $('#dyacok').hide();
     $('#kash').hide();
-    //$('#poz').hide();
+    $('#poz').hide();
     $('#nammmme').text("    ФІГУРА");
   wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
   wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
