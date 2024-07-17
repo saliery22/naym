@@ -233,12 +233,12 @@ $(".livesearch").chosen({search_contains : true});
   // find near unit
  
   $('#eeew').click(function() { UpdateGlobalData(0,7,0);});
-  
+  $('#goooo').click(fn_copy);
   
 }
 
 
-
+$('#marrr').hide();
 
 
 var layerControl=0;
@@ -267,56 +267,158 @@ function initMap() {
 layerControl=L.control.layers(basemaps).addTo(map);
 
 basemaps.OSM.addTo(map);
-  
+ 
+let point =0;
+map.on('dblclick', function(e) {
+  let lat=e.latlng.lat;
+  let lng=e.latlng.lng;
+  if(point==0){
+    point=[lat,lng];
+    let p1 = L.marker([lat, lng]).addTo(map);
+  }else{
+    let radius =wialon.util.Geometry.getDistance(point[0],point[1],e.latlng.lat, e.latlng.lng);
+    raddddd =  L.circle(point, {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: radius}).addTo(map);
+    for(let i = 0; i<Global_DATA.length; i++){
+      time1=0;
+      time2=0;
+      zup1=0;
+      zup2=0;
+      km=0;
+      html=0;
+      namee=Global_DATA[i][0][1];
+      for (let ii = 2; ii<Global_DATA[i].length; ii++){
+      if(Global_DATA[i][ii][0]==Global_DATA[i][ii-1][0]){
+         zup1+=((Global_DATA[i][ii][1]-Global_DATA[i][ii-1][1])/1000); 
+        }else{
+          if(zup1>100){
+            let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
+            let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
+            if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius, yy, xx)){
+              time1=Global_DATA[i][ii][1];
+            }
+          }
+          zup1=0;
+        }
+        if(time1>0){
+          if(Global_DATA[i][ii][0]==Global_DATA[i][ii-1][0]){
+            zup2+=((Global_DATA[i][ii][1]-Global_DATA[i][ii-1][1])/1000); 
+           }else{
+            let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
+            let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
+            let yyy = parseFloat(Global_DATA[i][ii-1][0].split(',')[0]);
+            let xxx = parseFloat(Global_DATA[i][ii-1][0].split(',')[1]);
+            km+=(wialon.util.Geometry.getDistance(yy,xx,yyy,xxx))/1000;
+             if(zup2>100){
+               if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 560, yy, xx)){
+                 time2=Global_DATA[i][ii][1];
+                 html += "<tr>";
+                 html += "<td nowrap>" + namee +'  '+ $('#nammmme').text()+ "</td>";
+                 html += "<td nowrap>"+ 'поля'+ "</td>";
+                 html += "<td nowrap>"+ 'ККЗ'+ "</td>";
+                 var cur_day1111 = new Date(time1);
+                 var month2 = cur_day1111.getMonth()+1;   
+                 var from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
+                 html += "<td nowrap>"+ from2222.split(' ')[0]+ "</td>";
+                 html += "<td nowrap>"+ km.toFixed(1)+ "</td>";
+                 var tt = (time2-time1)/1000;
+                 let m = Math.trunc(tt / 60) + '';
+                 let h = Math.trunc(m / 60) + '';
+                  m=(m % 60) + '';
+                  s=(tt % 60) + '';
+                
 
+                 html += "<td nowrap>"+h.padStart(2, 0) + ':' + m.padStart(2, 0)+ ':' + s.padStart(2, 0) +"</td>";
+                 html += "<td nowrap>"+"-----"+ "</td>";
+                 html += "<td nowrap>"+"-----"+ "</td>";
+                 html += "<td nowrap>"+"-----"+ "</td>";
+                 html += "<td nowrap>"+"-----"+ "</td>";
+                 html += "<td nowrap>"+"-----"+ "</td>";
+                 html += "<td nowrap>" + from2222 + "</td>";
+                  cur_day1111 = new Date(time2);
+                  month2 = cur_day1111.getMonth()+1;   
+                  from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
+                 html += "<td nowrap>" + from2222 + "</td>";
+                 html += "</tr>";
+                 $("#marshrut").append(html);
+                 zup1=0;
+                 km=0;
+                 time1=0;
+                 if ($('#marrr').is(':hidden')) {
+                  $('#marrr').show();
+                  $('#map').css('width', '80%');
+                 }
+               }
+             }
+             zup2=0;
+           }
+        }
+        
+      }
+    }
+
+    point=0;
+  }
+  
+  
+});
 
 }
 
+function fn_copy() {
+
+  var tableRow =document.querySelectorAll('#marshrut tr');
+  var cpdata='';
+  for ( j = 0; j < tableRow.length; j++){
+    cpdata += tableRow[j].cells[0].textContent+ '\t' +tableRow[j].cells[1].textContent+ '\t' +tableRow[j].cells[2].textContent+ '\t' +tableRow[j].cells[3].textContent+ '\t' +tableRow[j].cells[4].textContent+ '\t' +tableRow[j].cells[5].textContent+ '\t' +tableRow[j].cells[6].textContent+ '\t' +tableRow[j].cells[7].textContent+ '\t' +tableRow[j].cells[8].textContent+ '\t' +tableRow[j].cells[9].textContent+ '\t' +tableRow[j].cells[10].textContent+ '\t' +tableRow[j].cells[11].textContent+ '\t' +tableRow[j].cells[12].textContent+'\n';
+     
+  } 
+  navigator.clipboard.writeText(cpdata);
+  }
 
 
-
-$(document).ready(function () {
-  // init session
-  $('#figura').click(function() { 
-    $('#figura').hide();
-    $('#dyacok').hide();
-    $('#kash').hide();
-    $('#poz').hide();
-    $('#nammmme').text("    ФІГУРА");
-  wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-  wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
-  });
-  $('#dyacok').click(function() { 
-    $('#figura').hide();
-    $('#dyacok').hide();
-    $('#kash').hide();
-    $('#poz').hide();  
-    $('#nammmme').text("    ДЯЧОК");
-  wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
-  wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
-  });
-  $('#kash').click(function() { 
-    $('#figura').hide();
-    $('#dyacok').hide();
-    $('#kash').hide();
-    $('#poz').hide();
-    $('#nammmme').text("    КАШИНА");
-  wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
-  wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
-  });
-  $('#poz').click(function() { 
-    $('#figura').hide();
-    $('#dyacok').hide();
-    $('#kash').hide();
-    $('#poz').hide();
-    $('#nammmme').text("    ПОЗНИЦЬКИЙ");
-  wialon.core.Session.getInstance().initSession("https://uagps.net");
-  wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
-  });
-
-
+  $(document).ready(function () {
+    // init session
+    $('#figura').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();
+      $('#nammmme').text("    ФІГУРА");
+    wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
+    wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
+    $('#dyacok').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();  
+      $('#nammmme').text("    ДЯЧОК");
+    wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
+    wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
+    $('#kash').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();
+      $('#nammmme').text("    КАШИНА");
+    wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
+    wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
+    $('#poz').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();
+      $('#nammmme').text("    ПОЗНИЦЬКИЙ");
+    wialon.core.Session.getInstance().initSession("https://uagps.net");
+    wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
   
-});
+  
+    
+  });
+  
 
 
 
