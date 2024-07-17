@@ -269,7 +269,9 @@ layerControl=L.control.layers(basemaps).addTo(map);
 basemaps.OSM.addTo(map);
  
 let point =0;
+let raddddd;
 map.on('dblclick', function(e) {
+  
   let lat=e.latlng.lat;
   let lng=e.latlng.lng;
   if(point==0){
@@ -277,7 +279,9 @@ map.on('dblclick', function(e) {
     let p1 = L.marker([lat, lng]).addTo(map);
   }else{
     let radius =wialon.util.Geometry.getDistance(point[0],point[1],e.latlng.lat, e.latlng.lng);
+    if(raddddd)raddddd.setStyle({fillColor: '#00ff00'});
     raddddd =  L.circle(point, {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: radius}).addTo(map);
+    $("#marshrut").empty();
     for(let i = 0; i<Global_DATA.length; i++){
       time1=0;
       time2=0;
@@ -308,7 +312,12 @@ map.on('dblclick', function(e) {
             let yyy = parseFloat(Global_DATA[i][ii-1][0].split(',')[0]);
             let xxx = parseFloat(Global_DATA[i][ii-1][0].split(',')[1]);
             km+=(wialon.util.Geometry.getDistance(yy,xx,yyy,xxx))/1000;
+            zup2=0;
+           }
+           
              if(zup2>100){
+              let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
+              let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
                if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 560, yy, xx)){
                  time2=Global_DATA[i][ii][1];
                  html += "<tr>";
@@ -319,7 +328,7 @@ map.on('dblclick', function(e) {
                  var month2 = cur_day1111.getMonth()+1;   
                  var from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
                  html += "<td nowrap>"+ from2222.split(' ')[0]+ "</td>";
-                 html += "<td nowrap>"+ km.toFixed(1)+ "</td>";
+                 html += "<td nowrap>"+ km.toFixed(1)+' км'+ "</td>";
                  var tt = (time2-time1)/1000;
                  let m = Math.trunc(tt / 60) + '';
                  let h = Math.trunc(m / 60) + '';
@@ -341,16 +350,20 @@ map.on('dblclick', function(e) {
                  html += "</tr>";
                  $("#marshrut").append(html);
                  zup1=0;
+                 zup2=0;
                  km=0;
                  time1=0;
+                 time2=0;
+                 html='';
                  if ($('#marrr').is(':hidden')) {
                   $('#marrr').show();
                   $('#map').css('width', '80%');
                  }
                }
+               zup2=0;
              }
-             zup2=0;
-           }
+            
+           
         }
         
       }
@@ -484,10 +497,6 @@ function UpdateGlobalData(i=0){
     if(i==0){
      $('#eeew').prop("disabled", true);
        Global_DATA = [];
-       cur_day111 = new Date();
-       month = cur_day111.getMonth()+1;  
-       from222 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' ' + cur_day111.getHours()+ ':' + cur_day111.getMinutes();
-       $('#fromtime2').val(from222);
     } 
     if(i < unitslist.length){
         msg(unitslist.length-i);
