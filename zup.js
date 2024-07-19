@@ -3,6 +3,7 @@ var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f5352283DC6A9D670C8F7BA72A75BCC09B89
 var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f288674519D6EEE0DCC1057B81F7409B26008F22F86';
 var TOKEN3= '4dc3b0204971684d74650010bced5b6a8EB692F1698D3BCF61FA360AA6812AD35EE82E7C';
 var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308e2D64CEE49066D24B25138B0748B93162CAB6DF4C';
+var TOKEN5= '8a1b6914074512c156e37aebc30ad6109AAF8E79C5F3BE990B8A8E44259CB76AFEEA8142';
 
 // global variables
 var map, marker,unitslist = [],allunits = [],rest_units = [],marshruts = [],zup = [], unitMarkers = [], markerByUnit = {},tile_layer, layers = {},marshrutMarkers = [],unitsID = {},Vibranaya_zona;
@@ -396,6 +397,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    ФІГУРА");
     wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
     wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -405,6 +407,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();  
+      $('#over').hide();
       $('#nammmme').text("    ДЯЧОК");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -414,6 +417,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    КАШИНА");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -423,9 +427,20 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    ПОЗНИЦЬКИЙ");
     wialon.core.Session.getInstance().initSession("https://uagps.net");
     wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
+      $('#over').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();
+      $('#over').hide();
+      $('#nammmme').text("    OVERSEER");
+    wialon.core.Session.getInstance().initSession("https://local.overseer.ua");
+    wialon.core.Session.getInstance().loginToken(TOKEN5, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
     });
   
   
