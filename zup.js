@@ -298,7 +298,7 @@ map.on('dblclick', function(e) {
           if(zup1>100){
             let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
             let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
-            if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius, yy, xx)){
+            if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius*1.6, yy, xx)){
               time1=Global_DATA[i][ii][1];
             }
           }
