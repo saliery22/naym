@@ -1,9 +1,8 @@
 
-var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f0ED93A0CC5159E170E9E14F61B7D2FF1419EF0E2'; 
-var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f28B01444D090F900E2A06DC6F64F0AA4E15A10D486';
-var TOKEN3= '4dc3b0204971684d74650010bced5b6a4CCEF5D006389CB84FF6EA7C4F8D2F60FC2463A8';
-var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308e880A5076E75762F43767C7F4B00E5499BE3F8BFB';
-var TOKEN5= '8a1b6914074512c156e37aebc30ad6109A0282E236286ACAADBEAA8C7BA31B431A9E5D2C';
+var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f0ED93A0CC5159E170E9E14F61B7D2FF1419EF0E2';
+var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f288674519D6EEE0DCC1057B81F7409B26008F22F86';
+var TOKEN3= '4dc3b0204971684d74650010bced5b6a8EB692F1698D3BCF61FA360AA6812AD35EE82E7C';
+var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308e2D64CEE49066D24B25138B0748B93162CAB6DF4C';
 
 // global variables
 var map, marker,unitslist = [],allunits = [],rest_units = [],marshruts = [],zup = [], unitMarkers = [], markerByUnit = {},tile_layer, layers = {},marshrutMarkers = [],unitsID = {},Vibranaya_zona;
@@ -282,6 +281,7 @@ map.on('dblclick', function(e) {
     let radius =wialon.util.Geometry.getDistance(point[0],point[1],e.latlng.lat, e.latlng.lng);
     if(raddddd)raddddd.setStyle({fillColor: '#00ff00'});
     raddddd =  L.circle(point, {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: radius}).addTo(map);
+    //let radddddd =  L.circle([51.5507117121074, 33.34869861602784], {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: 500/1.6}).addTo(map);
     $("#marshrut").empty();
     for(let i = 0; i<Global_DATA.length; i++){
       time1=0;
@@ -313,13 +313,28 @@ map.on('dblclick', function(e) {
             let yyy = parseFloat(Global_DATA[i][ii-1][0].split(',')[0]);
             let xxx = parseFloat(Global_DATA[i][ii-1][0].split(',')[1]);
             km+=(wialon.util.Geometry.getDistance(yy,xx,yyy,xxx))/1000;
+              if(zup2>300){
+               if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius*1.6, yy, xx)==false){
+                let time_zup=Global_DATA[i][ii][1]-(zup2*1000);
+                let cur_day1111 = new Date(time_zup);
+                let month2 = cur_day1111.getMonth()+1;   
+                let from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
+                let m = Math.trunc(zup2 / 60) + '';
+                let h = Math.trunc(m / 60) + '';
+                  m=(m % 60) + '';
+                let  s=(tt % 60) + '';
+                
+                let marker = L.marker([yy, xx],{draggable: true}).bindPopup('<center><font size="1">' + namee+'<br />'+from2222+'<br />'+h.padStart(2, 0) + ':' + m.padStart(2, 0)+ ':' + s.padStart(2, 0)).addTo(map);
+                }
+              }
             zup2=0;
+            
            }
            
              if(zup2>100){
               let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
               let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
-               if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 560, yy, xx)){
+               if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 500, yy, xx)){
                  time2=Global_DATA[i][ii][1];
                  html += "<tr>";
                  html += "<td nowrap>" + namee +'  '+ $('#nammmme').text()+ "</td>";
@@ -361,7 +376,9 @@ map.on('dblclick', function(e) {
                   $('#map').css('width', '80%');
                  }
                }
-               zup2=0;
+              
+               
+              // zup2=0;
              }
             
            
@@ -397,7 +414,6 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
-      $('#over').hide();
       $('#nammmme').text("    ФІГУРА");
     wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
     wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -407,7 +423,6 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();  
-      $('#over').hide();
       $('#nammmme').text("    ДЯЧОК");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -417,7 +432,6 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
-      $('#over').hide();
       $('#nammmme').text("    КАШИНА");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -427,20 +441,9 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
-      $('#over').hide();
       $('#nammmme').text("    ПОЗНИЦЬКИЙ");
     wialon.core.Session.getInstance().initSession("https://uagps.net");
     wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
-    });
-      $('#over').click(function() { 
-      $('#figura').hide();
-      $('#dyacok').hide();
-      $('#kash').hide();
-      $('#poz').hide();
-      $('#over').hide();
-      $('#nammmme').text("    OVERSEER");
-    wialon.core.Session.getInstance().initSession("https://local.overseer.ua");
-    wialon.core.Session.getInstance().loginToken(TOKEN5, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
     });
   
   
