@@ -1,8 +1,9 @@
 
-var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f0ED93A0CC5159E170E9E14F61B7D2FF1419EF0E2';
-var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f288674519D6EEE0DCC1057B81F7409B26008F22F86';
-var TOKEN3= '4dc3b0204971684d74650010bced5b6a8EB692F1698D3BCF61FA360AA6812AD35EE82E7C';
-var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308e2D64CEE49066D24B25138B0748B93162CAB6DF4C';
+var TOKEN1= '3c2a7d8c6c33dc7594ce3892cd97b68f0ED93A0CC5159E170E9E14F61B7D2FF1419EF0E2'; 
+var TOKEN2= 'c6184e20008c73bc1d895a69e2aa4f28B01444D090F900E2A06DC6F64F0AA4E15A10D486';
+var TOKEN3= '4dc3b0204971684d74650010bced5b6a4CCEF5D006389CB84FF6EA7C4F8D2F60FC2463A8';
+var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308e880A5076E75762F43767C7F4B00E5499BE3F8BFB';
+var TOKEN5= '8a1b6914074512c156e37aebc30ad6109A0282E236286ACAADBEAA8C7BA31B431A9E5D2C';
 
 // global variables
 var map, marker,unitslist = [],allunits = [],rest_units = [],marshruts = [],zup = [], unitMarkers = [], markerByUnit = {},tile_layer, layers = {},marshrutMarkers = [],unitsID = {},Vibranaya_zona;
@@ -414,6 +415,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    ФІГУРА");
     wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
     wialon.core.Session.getInstance().loginToken(TOKEN1, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -423,6 +425,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();  
+      $('#over').hide();
       $('#nammmme').text("    ДЯЧОК");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -432,6 +435,7 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    КАШИНА");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
     wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
@@ -441,9 +445,20 @@ function fn_copy() {
       $('#dyacok').hide();
       $('#kash').hide();
       $('#poz').hide();
+      $('#over').hide();
       $('#nammmme').text("    ПОЗНИЦЬКИЙ");
     wialon.core.Session.getInstance().initSession("https://uagps.net");
     wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    });
+      $('#over').click(function() { 
+      $('#figura').hide();
+      $('#dyacok').hide();
+      $('#kash').hide();
+      $('#poz').hide();
+      $('#over').hide();
+      $('#nammmme').text("    OVERSEER");
+    wialon.core.Session.getInstance().initSession("https://local.overseer.ua");
+    wialon.core.Session.getInstance().loginToken(TOKEN5, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
     });
   
   
@@ -613,4 +628,3 @@ function track_Monitoring(evt){
    layers[0]=0;
    show_track();    
  }
-
