@@ -376,6 +376,10 @@ map.on('dblclick', function(e) {
                   $('#marrr').show();
                   $('#map').css('width', '80%');
                  }
+               }else{
+                if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius*1.6, yy, xx)){
+                  km=0;
+                }
                }
               
                
