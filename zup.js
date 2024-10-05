@@ -331,6 +331,25 @@ map.on('dblclick', function(e) {
             zup2=0;
             
            }
+           if(ii==Global_DATA[i].length-1){
+                if(zup2>300){
+                let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
+                let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
+               if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius*1.6, yy, xx)==false){
+                let time_zup=Global_DATA[i][ii][1]-(zup2*1000);
+                let cur_day1111 = new Date(time_zup);
+                let month2 = cur_day1111.getMonth()+1;   
+                let from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
+                let m = Math.trunc(zup2 / 60) + '';
+                let h = Math.trunc(m / 60) + '';
+                  m=(m % 60) + '';
+                let  s=(tt % 60) + '';
+                let marker = L.marker([yy, xx],{draggable: true}).bindPopup('<center><font size="1">' + namee+'<br />'+from2222+'<br />'+h.padStart(2, 0) + ':' + m.padStart(2, 0)+ ':' + s.padStart(2, 0)).addTo(map);
+                }
+              }
+
+           }
+
            
              if(zup2>100){
               let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
