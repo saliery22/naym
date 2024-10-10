@@ -296,7 +296,7 @@ map.on('dblclick', function(e) {
       if(Global_DATA[i][ii][0]==Global_DATA[i][ii-1][0]){
          zup1+=((Global_DATA[i][ii][1]-Global_DATA[i][ii-1][1])/1000); 
         }else{
-          if(zup1>100){
+          if(zup1>200){
             let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
             let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
             if( wialon.util.Geometry.pointInShape([{x:point[0], y:point[1]}], radius*1.6, yy, xx)){
@@ -351,7 +351,7 @@ map.on('dblclick', function(e) {
            }
 
            
-             if(zup2>100){
+             if(zup2>60){
               let yy = parseFloat(Global_DATA[i][ii][0].split(',')[0]);
               let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
                if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 500, yy, xx)){
