@@ -285,7 +285,7 @@ map.on('dblclick', function(e) {
     if(raddddd)raddddd.setStyle({fillColor: '#00ff00'});
     raddddd =  L.circle(point, {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: radius}).addTo(map);
     //let radddddd =  L.circle([51.5507117121074, 33.34869861602784], {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: 500/1.6}).addTo(map);
-    $("#marshrut").empty();
+    $("#").empty();
     for(let i = 0; i<Global_DATA.length; i++){
       time1=0;
       time2=0;
@@ -366,7 +366,7 @@ map.on('dblclick', function(e) {
                  var month2 = cur_day1111.getMonth()+1;   
                  var from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
                  html += "<td nowrap>"+ from2222.split(' ')[0]+ "</td>";
-                 html += "<td nowrap>"+ km.toFixed(1)+' км'+ "</td>";
+                 html += "<td nowrap>"+ km.toFixed(0)+ "</td>";
                  var tt = (time2-time1)/1000;
                  let m = Math.trunc(tt / 60) + '';
                  let h = Math.trunc(m / 60) + '';
@@ -386,7 +386,7 @@ map.on('dblclick', function(e) {
                   from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
                  html += "<td nowrap>" + from2222 + "</td>";
                  html += "</tr>";
-                 $("#marshrut").append(html);
+                 $("#").append(html);
                  zup1=0;
                  zup2=0;
                  km=0;
