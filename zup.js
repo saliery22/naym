@@ -386,7 +386,7 @@ map.on('dblclick', function(e) {
                   from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
                  html += "<td nowrap>" + from2222 + "</td>";
                  html += "</tr>";
-                 $("#").append(html);
+                 $("#marshrut").append(html);
                  zup1=0;
                  zup2=0;
                  km=0;
