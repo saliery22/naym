@@ -5,6 +5,7 @@ var TOKEN3= '4dc3b0204971684d74650010bced5b6aA49ED8D7428928708D6AFDB2FCC16F4AC3C
 var TOKEN4= 'f27fe4b012a4debc7bdfc12a7377308eA25B1AC5113CEE3789FDCCC55DCEF433E970BCC8';
 var TOKEN5= '';
 
+
 // global variables
 var map, marker,unitslist = [],allunits = [],rest_units = [],marshruts = [],zup = [], unitMarkers = [], markerByUnit = {},tile_layer, layers = {},marshrutMarkers = [],unitsID = {},Vibranaya_zona;
 var areUnitsLoaded = false;
@@ -30,7 +31,15 @@ var from222 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month +
 $('#fromtime1').val(from111);
 $('#fromtime2').val(from222);
 
+    $('#vchora').click(function() { 
+      let cur_day111 = new Date(Date.now()-86400000);
+      let month = cur_day111.getMonth()+1;   
+      let from111 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' 00:00';
+      let from222 = cur_day111.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + cur_day111.getDate()+ ' 23:58';
+      $('#fromtime1').val(from111);
+      $('#fromtime2').val(from222);
 
+    });
 
 
 
@@ -258,18 +267,16 @@ function initMap() {
 
 
   var basemaps = {
-   'Google_Streets':L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{subdomains:['mt0','mt1','mt2','mt3']}),
-    'Google_Hybrid':L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{subdomains:['mt0','mt1','mt2','mt3'],layers: 'OSM-Overlay-WMS,TOPO-WMS'}),
-    'Google_Terrain': L.tileLayer('http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}',{subdomains:['mt0','mt1','mt2','mt3']}),
-    'OSM':L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    'Night':L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {minZoom: 0,maxZoom: 20,	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',ext: 'png'})
+    OSM:L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
+
+    'Google Hybrid':L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{ subdomains:['mt0','mt1','mt2','mt3'],layers: 'OSM-Overlay-WMS,TOPO-WMS'})
 
 };
 
 
 layerControl=L.control.layers(basemaps).addTo(map);
 
-basemaps.Google_Streets.addTo(map);
+basemaps.OSM.addTo(map);
  
 let point =0;
 let raddddd;
@@ -285,15 +292,16 @@ map.on('dblclick', function(e) {
     if(raddddd)raddddd.setStyle({fillColor: '#00ff00'});
     raddddd =  L.circle(point, {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: radius}).addTo(map);
     //let radddddd =  L.circle([51.5507117121074, 33.34869861602784], {stroke: false, fillColor: '#0000FF', fillOpacity: 0.2,radius: 500/1.6}).addTo(map);
-    $("#").empty();
+    $("#marshrut").empty();
     for(let i = 0; i<Global_DATA.length; i++){
-      time1=0;
-      time2=0;
-      zup1=0;
-      zup2=0;
-      km=0;
-      html=0;
-      namee=Global_DATA[i][0][1];
+      let time1=0;
+      let time2=0;
+      let zup1=0;
+      let zup2=0;
+      let km=0;
+      let html=0;
+      let namee=Global_DATA[i][0][1];
+      let iddd = Global_DATA[i][0][0];
       for (let ii = 2; ii<Global_DATA[i].length; ii++){
       if(Global_DATA[i][ii][0]==Global_DATA[i][ii-1][0]){
          zup1+=((Global_DATA[i][ii][1]-Global_DATA[i][ii-1][1])/1000); 
@@ -358,7 +366,7 @@ map.on('dblclick', function(e) {
               let xx = parseFloat(Global_DATA[i][ii][0].split(',')[1]);
                if( wialon.util.Geometry.pointInShape([{x:51.5507117121074, y:33.34869861602784}], 500, yy, xx)){
                  time2=Global_DATA[i][ii][1];
-                 html += "<tr>";
+                 html += "<tr class='mar_trak' id='" + iddd + "'>";
                  html += "<td nowrap>" + namee +'  '+ $('#nammmme').text()+ "</td>";
                  html += "<td nowrap>"+ 'поля'+ "</td>";
                  html += "<td nowrap>"+ 'ККЗ'+ "</td>";
@@ -366,7 +374,7 @@ map.on('dblclick', function(e) {
                  var month2 = cur_day1111.getMonth()+1;   
                  var from2222 = cur_day1111.getFullYear() + '-' + (month2 < 10 ? '0' : '') + month2 + '-' + cur_day1111.getDate()+ ' ' + cur_day1111.getHours()+ ':' + cur_day1111.getMinutes()+ ':' + cur_day1111.getSeconds();
                  html += "<td nowrap>"+ from2222.split(' ')[0]+ "</td>";
-                 html += "<td nowrap>"+ km.toFixed(0)+ "</td>";
+                 html += "<td nowrap>"+ km.toFixed(1)+ "</td>";
                  var tt = (time2-time1)/1000;
                  let m = Math.trunc(tt / 60) + '';
                  let h = Math.trunc(m / 60) + '';
@@ -421,6 +429,21 @@ map.on('dblclick', function(e) {
 
 }
 
+  $("#marshrut").on("click", ".mar_trak", track_marshruta);
+function track_marshruta(evt){
+ [...document.querySelectorAll("#marshrut tr")].forEach(e => e.style.backgroundColor = '');
+ this.style.backgroundColor = 'pink';
+ //msg(this.rowIndex);
+ // msg(data_zvit[this.rowIndex-1][2]);
+  //msg(this.id);
+ $("#lis0").chosen().val(this.id);     
+ $("#lis0").trigger("chosen:updated");
+ show_track();
+  markerByUnit[this.id].openPopup();
+}
+
+
+
 function fn_copy() {
 
   var tableRow =document.querySelectorAll('#marshrut tr');
@@ -453,7 +476,7 @@ function fn_copy() {
       $('#over').hide();
       $('#nammmme').text("    ДЯЧОК");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
-    wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    wialon.core.Session.getInstance().loginToken(TOKEN2, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з ДЯЧОК - успішно'); initMap(); init(); } );
     });
     $('#kash').click(function() { 
       $('#figura').hide();
@@ -463,7 +486,7 @@ function fn_copy() {
       $('#over').hide();
       $('#nammmme').text("    КАШИНА");
     wialon.core.Session.getInstance().initSession("https://ingps.com.ua");
-    wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    wialon.core.Session.getInstance().loginToken(TOKEN3, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з КАШИНА - успішно'); initMap(); init(); } );
     });
     $('#poz').click(function() { 
       $('#figura').hide();
@@ -473,7 +496,7 @@ function fn_copy() {
       $('#over').hide();
       $('#nammmme').text("    ПОЗНИЦЬКИЙ");
     wialon.core.Session.getInstance().initSession("https://uagps.net");
-    wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    wialon.core.Session.getInstance().loginToken(TOKEN4, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з ПОЗНИЦЬКИЙ - успішно'); initMap(); init(); } );
     });
       $('#over').click(function() { 
       $('#figura').hide();
@@ -483,11 +506,11 @@ function fn_copy() {
       $('#over').hide();
       $('#nammmme').text("    OVERSEER");
     wialon.core.Session.getInstance().initSession("https://local.overseer.ua");
-    wialon.core.Session.getInstance().loginToken(TOKEN5, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з Фігура - успішно'); initMap(); init(); } );
+    wialon.core.Session.getInstance().loginToken(TOKEN5, "", function (code) { if (code){ msg(wialon.core.Errors.getErrorText(code)); return; }  msg('Зеднання з OVERSEER - успішно'); initMap(); init(); } );
     });
+
   
-  
-    
+   
   });
   
 
@@ -526,7 +549,7 @@ function show_track (time1,time2) {
 			if (layer) { 
 				if (map) {
 					if (!tile_layer)
-						tile_layer = L.tileLayer(sess.getBaseUrl() + "/adfurl" + renderer.getVersion() + "/avl_render/{x}_{y}_{z}/"+ sess.getId() +".png", {zoomReverse: true, zoomOffset: -1,zIndex: 6}).addTo(map);
+						tile_layer = L.tileLayer(sess.getBaseUrl() + "/adfurl" + renderer.getVersion() + "/avl_render/{x}_{y}_{z}/"+ sess.getId() +".png", {zoomReverse: true, zoomOffset: -1,zIndex: 3}).addTo(map);
 					else 
 						tile_layer.setUrl(sess.getBaseUrl() + "/adfurl" + renderer.getVersion() + "/avl_render/{x}_{y}_{z}/"+ sess.getId() +".png");
 				}	
